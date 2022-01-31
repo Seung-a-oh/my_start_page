@@ -4,7 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 import datetime
 
-from start.models import School, Depart 
+from start.models import School, Depart, Memo
 
 headers = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKschool/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36 Edg/96.0.1054.62"}
 
@@ -16,13 +16,12 @@ def index(request):
     school = School.objects.all()
     get_depart_bullet()
     depart = Depart.objects.all()
-    # get_calender()
-    # context.update(weather)
-    # context.update(time)
-    # context.update(school)
+    # content = memo()
+    content = Memo.objects.all()
+    print(content)
 
     return render(request, 'start/index.html', {
-        'times':time, 'weathers':weather, 'schools':school,'departs':depart})
+        'times':time, 'weathers':weather, 'schools':school,'departs':depart, 'memos':content})
 
 
 def create_soup(url):
@@ -67,7 +66,7 @@ def get_weather():
 def get_school_bullet():
     url = "https://home.sch.ac.kr/sch/06/010100.jsp"
     school_url = create_soup(url)
-    schools = school_url.find_all("td",attrs={"class":"subject"})
+    schools = school_url.find_all("td",attrs={"class":"subject"},limit=5)
 
     school_title = {}
     for index, school in enumerate(schools):
@@ -100,7 +99,7 @@ def get_school_bullet():
 def get_depart_bullet():
     url = "https://home.sch.ac.kr/iot/03/0101.jsp"
     depart_url = create_soup(url)
-    departs = depart_url.find_all("td",attrs={"class":"subject"})
+    departs = depart_url.find_all("td",attrs={"class":"subject"}, limit=5)
 
     depart_title = {}
     for index, depart in enumerate(departs):
@@ -109,6 +108,12 @@ def get_depart_bullet():
         Depart.objects.get_or_create(index=index, title=title, link=link)
 
     return depart_title
+
+
+def memo():
+    return 
+
+
 
 
 # def get_calender():
@@ -123,10 +128,10 @@ def get_depart_bullet():
 
 
 
-def get_quiz():
-    url = "https://cafe.naver.com/soojebi/99590"
-    quiz_url = create_soup(url)
-    quizz = quiz_url.find("a", attrs={"div":"inner_list"}).find("a",attrs={"class":"article"})
-    print("-------------------------------")
-    print(quizz)
-    print("-------------------------------")
+# def get_quiz():
+#     url = "https://cafe.naver.com/soojebi/99590"
+#     quiz_url = create_soup(url)
+#     quizz = quiz_url.find("a", attrs={"div":"inner_list"}).find("a",attrs={"class":"article"})
+#     print("-------------------------------")
+#     print(quizz)
+#     print("-------------------------------")

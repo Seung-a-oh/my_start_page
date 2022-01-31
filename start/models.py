@@ -15,3 +15,6 @@ class Depart(models.Model):
 
     def __str__(self):
         return self.title
+
+class Memo(models.Model):
+    content= models.TextField()

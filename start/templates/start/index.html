@@ -27,19 +27,30 @@
     now: {{weathers.cur_temp}} ({{weathers.lowest}}/{{weathers.highest}}) 
     {{weathers.weather}} ({{weathers.rain_am}}/{{weathers.rain_pm}})
 </div>
+
 <div>
     {{times.time}}
 </div>
+
 <div>
     {% for title in schools %}
         <a href="https://home.sch.ac.kr/sch/06/010100.jsp{{title.link}}">{{title.title}}</a>
         <br>
     {% endfor %}
 </div>
+
 <div>
     {% for title in departs %}
         <a href="https://home.sch.ac.kr/iot/03/0101.jsp{{title.link}}">{{title.title}}</a>
         <br>
     {% endfor %}
 </div>
+
+<form action="">
+    <p><textarea cols="50" rows="10">{% for memo in memos %}
+        {{memo.content}}
+        {% endfor %}</textarea></p>
+    <p><input type="submit" value="Submit"></p>
+    
+</form>
 {% endblock %}
