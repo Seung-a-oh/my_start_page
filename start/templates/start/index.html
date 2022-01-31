@@ -1,0 +1,38 @@
+{% extends "start/layout.html" %}
+
+{% block content %}
+<form method=get action="http://www.google.co.kr/search" target="_blank" >   
+    <table bgcolor="#FFFFFF">     
+        <tr>       
+            <td>           
+                <input type=text name=q size=25 maxlength=255 value="" /> <!-- 구글 검색 입력 창 -->           
+                <input type=submit name=btnG value="Google 검색" /> <!-- 검색 버튼 -->       
+            </td>     
+        </tr>   
+    </table> 
+</form>
+
+<form method=get action="http://search.naver.com/search.naver" target="_blank" >   
+    <table bgcolor="#FFFFFF">     
+        <tr>       
+            <td>           
+                <input type=text name=q size=25 maxlength=255 value="" /> <!-- 구글 검색 입력 창 -->           
+                <input type=submit name=btnG value="naver 검색" /> <!-- 검색 버튼 -->       
+            </td>     
+        </tr>   
+    </table> 
+</form>
+
+<div>
+    now: {{weathers.cur_temp}} ({{weathers.lowest}}/{{weathers.highest}}) 
+    {{weathers.weather}} ({{weathers.rain_am}}/{{weathers.rain_pm}})
+</div>
+<div>
+    {{times.time}}
+</div>
+<div>
+    {% for title in schools %}
+        {{title.title}}
+    {% endfor %}
+</div>
+{% endblock %}
