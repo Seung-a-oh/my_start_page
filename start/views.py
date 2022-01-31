@@ -4,7 +4,8 @@ import requests
 from bs4 import BeautifulSoup
 import datetime
 
-from start.models import School
+from start.models import School, Depart 
+
 headers = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKschool/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36 Edg/96.0.1054.62"}
 
 def index(request):
@@ -13,12 +14,15 @@ def index(request):
     weather = get_weather()
     get_school_bullet()
     school = School.objects.all()
-
+    get_depart_bullet()
+    depart = Depart.objects.all()
+    # get_calender()
     # context.update(weather)
     # context.update(time)
     # context.update(school)
 
-    return render(request, 'start/index.html', {'times':time, 'weathers':weather, 'schools':school})
+    return render(request, 'start/index.html', {
+        'times':time, 'weathers':weather, 'schools':school,'departs':depart})
 
 
 def create_soup(url):
@@ -70,7 +74,7 @@ def get_school_bullet():
         title = school.find("a").get_text().strip()
         link = school.find("a")["href"]
         # school_title[index+1] = [title, link]
-        School.objects.create(index=index, title=title, link=link)
+        School.objects.get_or_create(index=index, title=title, link=link)
 
     # schools = School.objects.all()
     # school_title = {'schools':schools}
@@ -91,3 +95,38 @@ def get_school_bullet():
 #         school_title[index+1] = [title, link]
 
 #     return school_title
+
+
+def get_depart_bullet():
+    url = "https://home.sch.ac.kr/iot/03/0101.jsp"
+    depart_url = create_soup(url)
+    departs = depart_url.find_all("td",attrs={"class":"subject"})
+
+    depart_title = {}
+    for index, depart in enumerate(departs):
+        title = depart.find("a").get_text().strip()
+        link = depart.find("a")["href"]
+        Depart.objects.get_or_create(index=index, title=title, link=link)
+
+    return depart_title
+
+
+# def get_calender():
+#     url = "https://home.sch.ac.kr/sch/05/010000.jsp"
+#     calender_url = create_soup(url)
+
+#     month = datetime.datetime.now().month
+#     cur_month = "section month_"+str(month)+" active"
+    
+#     cals = calender_url.find("div",attrs={"class":cur_month})
+#     print(cals)
+
+
+
+def get_quiz():
+    url = "https://cafe.naver.com/soojebi/99590"
+    quiz_url = create_soup(url)
+    quizz = quiz_url.find("a", attrs={"div":"inner_list"}).find("a",attrs={"class":"article"})
+    print("-------------------------------")
+    print(quizz)
+    print("-------------------------------")

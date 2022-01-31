@@ -32,7 +32,14 @@
 </div>
 <div>
     {% for title in schools %}
-        {{title.title}}
+        <a href="https://home.sch.ac.kr/sch/06/010100.jsp{{title.link}}">{{title.title}}</a>
+        <br>
+    {% endfor %}
+</div>
+<div>
+    {% for title in departs %}
+        <a href="https://home.sch.ac.kr/iot/03/0101.jsp{{title.link}}">{{title.title}}</a>
+        <br>
     {% endfor %}
 </div>
 {% endblock %}
