@@ -44,14 +44,16 @@
         </table> 
     </form>
     
-   
-    
-    <form class="note" action="">
-        <p><textarea>{% for memo in memos %}
+    <form class="note" action="{% url 'start:create' %}" method="POST">
+        {% csrf_token %}
+        {% comment %} <p><textarea>{% for memo in memos %}
             {{memo.content}}
             {% endfor %}</textarea></p>
+        <p class="save"><input type="submit" value="Submit"></p> {% endcomment %}
+        <textarea name="content">
+            {{memos}}
+        </textarea>
         <p class="save"><input type="submit" value="Submit"></p>
-        
     </form>
 
     <div class="school">

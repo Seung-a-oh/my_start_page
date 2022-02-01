@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.http import Http404, HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 import requests
 from bs4 import BeautifulSoup
@@ -7,6 +7,21 @@ import datetime
 from start.models import School, Depart, Memo
 
 headers = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKschool/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36 Edg/96.0.1054.62"}
+
+def create(request):
+    try:
+        if(request.method == "POST"):
+            post = Memo()
+            post.content = request.POST['content']
+
+            post.save()
+    except:
+        first_memo = Memo.objects.get_or_create(content="내용을 입력하세요.")
+        first_memo.save()
+        print(first_memo)
+
+
+    return redirect('start:index')
 
 def index(request):
     
@@ -17,8 +32,11 @@ def index(request):
     get_depart_bullet()
     depart = Depart.objects.all()
     # content = memo()
-    content = Memo.objects.all()
-    print(content)
+    try:
+        Memo_obj = Memo.objects.last()
+        content = Memo_obj.content
+    except:
+        content = "내용을 입력하세요."
 
     return render(request, 'start/index.html', {
         'times':time, 'weathers':weather, 'schools':school,'departs':depart, 'memos':content})
