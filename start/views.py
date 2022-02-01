@@ -13,7 +13,6 @@ def create(request):
         if(request.method == "POST"):
             post = Memo()
             post.content = request.POST['content']
-
             post.save()
     except:
         first_memo = Memo.objects.get_or_create(content="내용을 입력하세요.")
@@ -31,15 +30,16 @@ def index(request):
     school = School.objects.all()
     get_depart_bullet()
     depart = Depart.objects.all()
-    # content = memo()
     try:
         Memo_obj = Memo.objects.last()
         content = Memo_obj.content
     except:
         content = "내용을 입력하세요."
 
+    # get_mail()
+
     return render(request, 'start/index.html', {
-        'times':time, 'weathers':weather, 'schools':school,'departs':depart, 'memos':content})
+        'times':time, 'weathers':weather, 'schools':school,'departs':depart, 'memos':content.strip()})
 
 
 def create_soup(url):
@@ -127,9 +127,14 @@ def get_depart_bullet():
 
     return depart_title
 
-
-def memo():
-    return 
+# 페이지 로드 불가..
+# def get_mail():
+#     url = "https://mail.naver.com/"
+#     mail_url = create_soup(url)
+#     # mails = mail_url.find("strong", attrs={"class":"num MY_MAIL_COUNT"})
+#     mails = mail_url.find("span", attrs={"id":"unreadMailCount"})
+#     print("###############")
+#     print(mails)
 
 
 

@@ -13,16 +13,8 @@
 </head>
 <body>
     {% block content %}
-
-    <div class="weather">
-        now: {{weathers.cur_temp}} ({{weathers.lowest}}/{{weathers.highest}}) 
-        {{weathers.weather}} ({{weathers.rain_am}}/{{weathers.rain_pm}})
-    </div>
-
-    <div class="time">
-        {{times.time}}
-    </div>
-    <form method=get action="http://www.google.co.kr/search" target="_blank" >   
+ 
+    <form class="search" method=get action="http://www.google.co.kr/search" target="_blank" >   
         <table bgcolor="#FFFFFF">     
             <tr>       
                 <td>           
@@ -32,8 +24,17 @@
             </tr>   
         </table> 
     </form>
+
+    <div class="weather">
+        now: {{weathers.cur_temp}} ({{weathers.lowest}}/{{weathers.highest}}) 
+        {{weathers.weather}} ({{weathers.rain_am}}/{{weathers.rain_pm}})
+    </div>
+
+    <div class="time">
+        {{times.time}}
+    </div>
     
-    <form method=get action="http://search.naver.com/search.naver" target="_blank" >   
+    {% comment %} <form method=get action="http://search.naver.com/search.naver" target="_blank" >   
         <table bgcolor="#FFFFFF">     
             <tr>       
                 <td>           
@@ -42,37 +43,45 @@
                 </td>     
             </tr>   
         </table> 
-    </form>
+    </form> {% endcomment %}
     
-    <form class="note" action="{% url 'start:create' %}" method="POST">
+    <form class="memo" action="{% url 'start:create' %}" method="POST">
         {% csrf_token %}
-        {% comment %} <p><textarea>{% for memo in memos %}
-            {{memo.content}}
-            {% endfor %}</textarea></p>
-        <p class="save"><input type="submit" value="Submit"></p> {% endcomment %}
-        <textarea name="content">
-            {{memos}}
-        </textarea>
+        <textarea name="content">{{memos}}</textarea>
         <p class="save"><input type="submit" value="Submit"></p>
     </form>
 
-    <div class="school">
-        <div class="school-inner">
-        {% for title in schools %}
-            <li>
-                <a href="https://home.sch.ac.kr/sch/06/010100.jsp{{title.link}}">{{title.title}}</a>
-            </li>
-        {% endfor %}
-        </div>
+    <div>
+
     </div>
-    
-    <div class="depart">
-        <div class="depart-inner">
-        {% for title in departs %}
-            <li>
-                <a href="https://home.sch.ac.kr/iot/03/0101.jsp{{title.link}}">{{title.title}}</a>
-            </li>
-        {% endfor %}
+
+    <div class="bullet">
+        <div class="school">
+            <div class="school-inner">
+            {% for title in schools %}
+                <li>
+                    <a href="https://home.sch.ac.kr/sch/06/010100.jsp{{title.link}}">{{title.title}}</a>
+                </li>
+            {% endfor %}
+            </div>
+        </div>
+        
+        <div class="depart">
+            <div class="depart-inner">
+            {% for title in departs %}
+                <li>
+                    <a href="https://home.sch.ac.kr/iot/03/0101.jsp{{title.link}}">{{title.title}}</a>
+                </li>
+            {% endfor %}
+            </div>
+        </div>
+
+        <div class="go">
+            <li><a href="http://www.google.co.kr">google</a></li>
+            <li><a href="https://www.naver.com/">naver</a></li>
+            <li><a href="https://portal.sch.ac.kr/p/index.jsp">school</a></li>
+            <li><a href="https://eclass.sch.ac.kr/">eclass</a></li>
+            <li><a href="https://home.sch.ac.kr/iot/03/0101.jsp">iot</a></li>
         </div>
     </div>
     {% endblock %}

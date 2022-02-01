@@ -7,6 +7,12 @@ a {
     text-decoration: none;
     color: black;
 }
+
+.search {
+    position: absolute;
+    margin: 15px;
+}
+
 .weather {
     font-size: 15px;
     float: right;
@@ -18,22 +24,28 @@ a {
     font-size: 20px;
     text-align: center;
     clear: both;        /* float로 인해 겹칠 때는 clear: both */
-    padding-top: 20px;
+    padding: 30px;
 }
 
-.note {
-    width: 300px;
+.memo {
+    width: 500px;
     margin: 0 auto;
 }
-
+/* cols="5" rows="15"  */
 textarea {
-    width: 300px;
+    width: 500px;
+    height: 300px;
     text-align: center;
     resize: none;
+    background-color: rgb(226, 226, 226);
 }
 
 .save {
     text-align: center;
+}
+
+.bullet {
+    margin-top: 30px;
 }
 
 .school {
@@ -68,4 +80,14 @@ textarea {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.go {
+    float: left;
+    width: 400px;
+    height: 200px;
+    border-radius: 10px;
+    background-color: rgb(250, 247, 234);
+    padding: 15px;
+    margin-left: 20px;
 }
