@@ -1,56 +1,78 @@
-{% extends "start/layout.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="shortcut icon" type="image/x-icon" href="{% static 'start/favicon.ico' %}">
+  <title>{% block title %}{% endblock %}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'start/index.css' %}">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+<body>
+    {% block content %}
 
-{% block content %}
-<form method=get action="http://www.google.co.kr/search" target="_blank" >   
-    <table bgcolor="#FFFFFF">     
-        <tr>       
-            <td>           
-                <input type=text name=q size=25 maxlength=255 value="" /> <!-- 구글 검색 입력 창 -->           
-                <input type=submit name=btnG value="Google 검색" /> <!-- 검색 버튼 -->       
-            </td>     
-        </tr>   
-    </table> 
-</form>
+    <div class="weather">
+        now: {{weathers.cur_temp}} ({{weathers.lowest}}/{{weathers.highest}}) 
+        {{weathers.weather}} ({{weathers.rain_am}}/{{weathers.rain_pm}})
+    </div>
 
-<form method=get action="http://search.naver.com/search.naver" target="_blank" >   
-    <table bgcolor="#FFFFFF">     
-        <tr>       
-            <td>           
-                <input type=text name=q size=25 maxlength=255 value="" /> <!-- 구글 검색 입력 창 -->           
-                <input type=submit name=btnG value="naver 검색" /> <!-- 검색 버튼 -->       
-            </td>     
-        </tr>   
-    </table> 
-</form>
-
-<div>
-    now: {{weathers.cur_temp}} ({{weathers.lowest}}/{{weathers.highest}}) 
-    {{weathers.weather}} ({{weathers.rain_am}}/{{weathers.rain_pm}})
-</div>
-
-<div>
-    {{times.time}}
-</div>
-
-<div>
-    {% for title in schools %}
-        <a href="https://home.sch.ac.kr/sch/06/010100.jsp{{title.link}}">{{title.title}}</a>
-        <br>
-    {% endfor %}
-</div>
-
-<div>
-    {% for title in departs %}
-        <a href="https://home.sch.ac.kr/iot/03/0101.jsp{{title.link}}">{{title.title}}</a>
-        <br>
-    {% endfor %}
-</div>
-
-<form action="">
-    <p><textarea cols="50" rows="10">{% for memo in memos %}
-        {{memo.content}}
-        {% endfor %}</textarea></p>
-    <p><input type="submit" value="Submit"></p>
+    <div class="time">
+        {{times.time}}
+    </div>
+    <form method=get action="http://www.google.co.kr/search" target="_blank" >   
+        <table bgcolor="#FFFFFF">     
+            <tr>       
+                <td>           
+                    <input type=text name=q size=25 maxlength=255 value="" /> <!-- 구글 검색 입력 창 -->           
+                    <input type=submit name=btnG value="Google 검색" /> <!-- 검색 버튼 -->       
+                </td>     
+            </tr>   
+        </table> 
+    </form>
     
-</form>
-{% endblock %}
+    <form method=get action="http://search.naver.com/search.naver" target="_blank" >   
+        <table bgcolor="#FFFFFF">     
+            <tr>       
+                <td>           
+                    <input type=text name=q size=25 maxlength=255 value="" /> <!-- 구글 검색 입력 창 -->           
+                    <input type=submit name=btnG value="naver 검색" /> <!-- 검색 버튼 -->       
+                </td>     
+            </tr>   
+        </table> 
+    </form>
+    
+   
+    
+    <form class="note" action="">
+        <p><textarea>{% for memo in memos %}
+            {{memo.content}}
+            {% endfor %}</textarea></p>
+        <p class="save"><input type="submit" value="Submit"></p>
+        
+    </form>
+
+    <div class="school">
+        <div class="school-inner">
+        {% for title in schools %}
+            <li>
+                <a href="https://home.sch.ac.kr/sch/06/010100.jsp{{title.link}}">{{title.title}}</a>
+            </li>
+        {% endfor %}
+        </div>
+    </div>
+    
+    <div class="depart">
+        <div class="depart-inner">
+        {% for title in departs %}
+            <li>
+                <a href="https://home.sch.ac.kr/iot/03/0101.jsp{{title.link}}">{{title.title}}</a>
+            </li>
+        {% endfor %}
+        </div>
+    </div>
+    {% endblock %}
+</body>
+</html>

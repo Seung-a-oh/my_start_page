@@ -1,0 +1,71 @@
+/* index.html의 css */
+/* body {
+    background-color: rgb(255, 255, 255);
+} */
+
+a {
+    text-decoration: none;
+    color: black;
+}
+.weather {
+    font-size: 15px;
+    float: right;
+    margin-right: 15px;
+    margin-top: 15px;
+}
+
+.time {
+    font-size: 20px;
+    text-align: center;
+    clear: both;        /* float로 인해 겹칠 때는 clear: both */
+    padding-top: 20px;
+}
+
+.note {
+    width: 300px;
+    margin: 0 auto;
+}
+
+textarea {
+    width: 300px;
+    text-align: center;
+    resize: none;
+}
+
+.save {
+    text-align: center;
+}
+
+.school {
+    float: left;
+    width: 400px;
+    height: 200px;
+    border-radius: 10px;
+    background-color: rgb(250, 247, 234);
+    padding: 15px;
+    margin-left: 20px;
+}
+
+.school-inner {
+    width: 360px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.depart {
+    float: left;
+    width: 400px;
+    height: 200px;
+    border-radius: 10px;
+    background-color: rgb(250, 247, 234);
+    padding: 15px;
+    margin-left: 20px;
+}
+
+.depart-inner {
+    width: 360px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
