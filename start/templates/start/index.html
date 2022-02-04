@@ -77,11 +77,13 @@
         </div>
 
         <div class="go">
-            <li><a href="http://www.google.co.kr">google</a></li>
-            <li><a href="https://www.naver.com/">naver</a></li>
-            <li><a href="https://portal.sch.ac.kr/p/index.jsp">school</a></li>
-            <li><a href="https://eclass.sch.ac.kr/">eclass</a></li>
-            <li><a href="https://home.sch.ac.kr/iot/03/0101.jsp">iot</a></li>
+            {% for go in gos %}
+            <li><a href="{{go.link}}">{{go.name}}</a></li>
+            {% endfor %}
+            <form class="add" action="addpage/" method="POST">
+                {% csrf_token %}
+                <input type="submit" value="바로가기 추가하기">
+            </form>
         </div>
     </div>
     {% endblock %}

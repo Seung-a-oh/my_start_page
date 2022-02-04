@@ -18,3 +18,7 @@ class Depart(models.Model):
 
 class Memo(models.Model):
     content= models.TextField()
+
+class Go(models.Model):
+    name = models.CharField(max_length=20)
+    link = models.TextField()

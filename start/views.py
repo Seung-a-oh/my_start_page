@@ -4,10 +4,11 @@ import requests
 from bs4 import BeautifulSoup
 import datetime
 
-from start.models import School, Depart, Memo
+from start.models import School, Depart, Memo, Go
 
 headers = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKschool/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36 Edg/96.0.1054.62"}
 
+# 새로운 메모를 생성
 def create(request):
     try:
         if(request.method == "POST"):
@@ -19,6 +20,17 @@ def create(request):
         first_memo.save()
         print(first_memo)
 
+    return redirect('start:index')
+
+def addpage(request):
+    return render(request,'start/add.html')
+
+def add(request):
+    if(request.method == "POST"):
+        go_post = Go()
+        go_post.name = request.POST['name']
+        go_post.link = request.POST['link']
+        go_post.save()
 
     return redirect('start:index')
 
@@ -35,11 +47,11 @@ def index(request):
         content = Memo_obj.content
     except:
         content = "내용을 입력하세요."
-
-    # get_mail()
+    go = Go.objects.all()
 
     return render(request, 'start/index.html', {
-        'times':time, 'weathers':weather, 'schools':school,'departs':depart, 'memos':content.strip()})
+        'times':time, 'weathers':weather, 'schools':school,
+        'departs':depart, 'memos':content, 'gos':go})
 
 
 def create_soup(url):
