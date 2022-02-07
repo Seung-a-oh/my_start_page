@@ -96,7 +96,7 @@ def get_weather():
 def get_school_bullet():
     url = "https://home.sch.ac.kr/sch/06/010100.jsp"
     school_url = create_soup(url)
-    schools = school_url.find_all("td",attrs={"class":"subject"},limit=5)
+    schools = school_url.find_all("td",attrs={"class":"subject"},limit=10)
     record = School.objects.all()
     record.delete()
 
@@ -131,7 +131,7 @@ def get_school_bullet():
 def get_depart_bullet():
     url = "https://home.sch.ac.kr/iot/03/0101.jsp"
     depart_url = create_soup(url)
-    departs = depart_url.find_all("td",attrs={"class":"subject"}, limit=5)
+    departs = depart_url.find_all("td",attrs={"class":"subject"}, limit=10)
     record = Depart.objects.all()
     record.delete()
 

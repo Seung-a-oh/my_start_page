@@ -51,7 +51,7 @@ textarea {
 .school {
     float: left;
     width: 400px;
-    height: 200px;
+    height: 600px;
     /* border-radius: 10px; */
     background-color: rgb(226, 226, 226);
     padding: 15px;
@@ -68,7 +68,7 @@ textarea {
 .depart {
     float: left;
     width: 400px;
-    height: 200px;
+    height: 600px;
     /* border-radius: 10px; */
     background-color: rgb(226, 226, 226);
     padding: 15px;
